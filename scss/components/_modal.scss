@@ -1,0 +1,52 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color: #000000, $alpha: .4);
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: relative;
+    width: 265px;
+    margin: 10% auto auto;
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 2rem;
+    color: gray;
+    &-close { 
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        border: 0;
+        background-color: transparent;  
+    }
+    &-content img {
+        height: 8rem;
+        margin-bottom: 1rem;
+    }
+    &-text {
+        & * {
+        margin-bottom: 1rem;
+        }
+        & h2 {
+            color: black;
+            font-size: 1.1rem;
+        }
+        & hr {
+            margin: 2rem 0;
+            border-top: 1px solid lightgray;
+        }
+        & .birthday {
+            margin-bottom: 0;
+        }
+    }
+}
+
