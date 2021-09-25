@@ -3,6 +3,7 @@ let employees = [];
 const grid = document.querySelector(".grid");
 const overlay = document.querySelector(".overlay");
 const modalContent = document.querySelector(".modal-content");
+const modalClose = document.querySelector('.modal-close');
 
 fetch(url)
     .then(response => response.json())
@@ -53,15 +54,25 @@ function displayModal(index) {
 ${date.getMonth()}/${date.getDay()}/${date.getFullYear()}</p>
         </div>
     `
-    overlay.classList.remove("hidden");
+    overlay.classList.remove('hidden');
     modalContent.innerHTML = modalHTML;
 }
 
 grid.addEventListener('click', e => {
     if (e.target !== grid) {
-        const card = e.target.closest(".card");
+        const card = e.target.closest('.card');
         const index = card.getAttribute('data-index');
         
         displayModal(index);
+    }
+});
+
+modalClose.addEventListener('click', e => {
+    overlay.classList.add('hidden');
+});
+
+overlay.addEventListener('click', e => {
+    if (!overlay.classList.contains('hidden') & e.target.className === 'overlay') {
+        overlay.classList.add('hidden');
     }
 })
