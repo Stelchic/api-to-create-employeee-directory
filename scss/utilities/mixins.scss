@@ -3,3 +3,12 @@
         @content;
     }
 }
+
+@mixin hoverDropshadow {
+    transition: .5s ease box-shadow;
+    &:hover,
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px #8e2be8;
+    }
+}

@@ -374,6 +374,20 @@ p {
 header {
   width: 92%;
   margin: 4rem auto 2rem auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+header input {
+  border: 2px solid #dfdfdf;
+  border-radius: 5px;
+  padding: 1rem;
+  transition: 0.5s ease box-shadow;
+}
+
+header input:hover, header input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #8e2be8;
 }
 
 main {
@@ -405,6 +419,12 @@ main {
   border: 2px solid #dfdfdf;
   border-radius: 5px;
   padding: 1.1rem;
+  transition: 0.5s ease box-shadow;
+}
+
+.card:hover, .card:focus {
+  outline: none;
+  box-shadow: 0 0 5px #8e2be8;
 }
 
 .card img {

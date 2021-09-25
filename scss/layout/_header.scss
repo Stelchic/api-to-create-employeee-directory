@@ -1,4 +1,15 @@
+@use '../utilities/mixins.scss' as *;
+
 header {
     width: 92%;
     margin: 4rem auto 2rem auto;
+    display: flex;
+    justify-content: space-between;
+
+    & input {
+        border: 2px solid #dfdfdf;
+        border-radius: 5px;
+        padding: 1rem;
+        @include hoverDropshadow;
+    }
 }
