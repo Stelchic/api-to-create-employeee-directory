@@ -49,7 +49,11 @@ function displayModal(index) {
             <h2 class="name">${name.first} ${name.last}</h2>
             <p class="email">${email}</p>
             <p class="location">${city}</p>
-            <hr />
+            <div class="arrows">
+                <input type="button" class="arrow left-arrow" value="<"/>
+                <hr />
+                <input type="button" class="arrow right-arrow" value=">"/>
+                </div>
             <p class="tel">${phone}</p>
             <p class="address">${street.number} ${street.name}, ${state} ${postcode}</p>
             <p class="birthday">Birthday: 
