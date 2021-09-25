@@ -4,6 +4,7 @@ const grid = document.querySelector(".grid");
 const overlay = document.querySelector(".overlay");
 const modalContent = document.querySelector(".modal-content");
 const modalClose = document.querySelector('.modal-close');
+const search = document.querySelector('.search');
 
 fetch(url)
     .then(response => response.json())
@@ -23,7 +24,7 @@ function displayEmployeeDirectory(employeeData) {
         const city = employee.location.city;
 
         employeesHTML += `
-            <div class="card" data-index="${index}"</div>
+            <div class="card" data-index="${index}" data-caption="${name.first.toLowerCase()} ${name.last.toLowerCase()}">
                 <img class="photo" src=${picture} />
                 <div class="employee-info">
                     <h2 class="name">${name.first} ${name.last}</h2>
@@ -74,5 +75,18 @@ modalClose.addEventListener('click', e => {
 overlay.addEventListener('click', e => {
     if (!overlay.classList.contains('hidden') & e.target.className === 'overlay') {
         overlay.classList.add('hidden');
+    }
+})
+
+search.addEventListener('input', e => {
+    const cards = document.querySelectorAll('.card');
+    const input = search.value.toLowerCase();
+    console.log(input);
+    for (let i = 0; i < cards.length; i++) {
+        if (!cards[i].getAttribute('data-caption').includes(input)) {
+            cards[i].style.display = "none";
+        } else {
+            cards[i].style.display = "flex";
+        }
     }
 })
