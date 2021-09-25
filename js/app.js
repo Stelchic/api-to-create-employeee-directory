@@ -5,6 +5,7 @@ const cards = document.getElementsByClassName('card');
 const overlay = document.querySelector(".overlay");
 const modalContent = document.querySelector(".modal-content");
 const modalClose = document.querySelector('.modal-close');
+let leftArrow, rightArrow;
 const search = document.querySelector('.search');
 
 fetch(url)
@@ -53,7 +54,7 @@ function displayModal(index) {
                 <input type="button" class="arrow left-arrow" value="<"/>
                 <hr />
                 <input type="button" class="arrow right-arrow" value=">"/>
-                </div>
+            </div>
             <p class="tel">${phone}</p>
             <p class="address">${street.number} ${street.name}, ${state} ${postcode}</p>
             <p class="birthday">Birthday: 
@@ -67,6 +68,17 @@ ${date.getMonth()}/${date.getDay()}/${date.getFullYear()}</p>
     }
     
     modalContent.innerHTML = modalHTML;
+
+    leftArrow = document.querySelector('.left-arrow');
+    rightArrow = document.querySelector('.right-arrow');
+
+    leftArrow.addEventListener('click', e => {
+        changeModalIndex('prev');
+    });
+
+    rightArrow.addEventListener('click', e => {
+        changeModalIndex('next');
+    });
 }
 
 grid.addEventListener('click', e => {
@@ -101,26 +113,34 @@ search.addEventListener('input', e => {
     }
 });
 
-document.addEventListener('keydown', e => {
+function changeModalIndex(direction) {
     const modalIndex = parseInt(modalContent.getAttribute('data-index'));
     const prevIndex = modalIndex - 1;
     const nextIndex = modalIndex + 1;
     const cardsLength = cards.length - 1;
-    console.log(e.key);
-    if (!overlay.classList.contains('hidden')) {
-        if (e.key === 'ArrowRight') {
-            if (modalIndex === cardsLength) {
-                displayModal(0);
-            } else {
-                displayModal(nextIndex);
-            }
+
+    if (direction === 'next') {
+        if (modalIndex === cardsLength) {
+            displayModal(0);
+        } else {
+            displayModal(nextIndex);
         }
-        if (e.key === 'ArrowLeft') {
-            if (modalIndex === 0) {
-                displayModal(cardsLength);
-            } else {
-                displayModal(prevIndex);
-            }
+    } else if (direction === 'prev') {
+        if (modalIndex === 0) {
+            displayModal(cardsLength);
+        } else {
+            displayModal(prevIndex);
         }
     }
-})
+}
+
+document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') {
+            changeModalIndex('next');
+        }
+        if (e.key === 'ArrowLeft') {
+            changeModalIndex('prev');
+        }
+    }
+});
