@@ -1,50 +1,47 @@
-fetch('https://randomuser.me/api/?results=12')
+const url = 'https://randomuser.me/api/?results=12&nat=us&inc=name,location,email,dob,picture,nat,&noinfo';
+let employees = [];
+const grid = document.querySelector(".grid");
+
+fetch(url)
     .then(response => response.json())
-    .then(data => createEmployeeDirectory(data.results))
+    .then(response => response.results)
+    .then(displayEmployeeDirectory)
+    .catch(err => console.log(err))
 
-function createEmployeeDirectory(employees) {
-    employees.forEach(employee => {
-        createCard(employee);
+function displayEmployeeDirectory(employeeData) {
+    employees = employeeData;
+
+    employeesHTML = '';
+
+    employees.forEach((employee, index) => {
+        const picture = employee.picture.large;
+        const name = employee.name;
+        const email = employee.email;
+        const city = employee.location.city;
+
+        employeesHTML += `
+            <div class="card" data-index=${index}</div>
+                <img class="photo" src=${picture} />
+                <div class="employee-info">
+                    <h2 class="name">${name.first} ${name.last}</h2>
+                    <p class="email">${email}</p>
+                    <p class="location">${city}</p>
+                </div>
+            </div>
+        `
     });
+
+    grid.innerHTML = employeesHTML;
 }
 
-function createCard(employee) {
-    function createDiv(htmlClass) {
-        const div = document.createElement("div");
-        div.classList = htmlClass;
-        return div;
-    }
-    function createPhoto(employee) {
-        const photo = document.createElement("img");
-        photo.src = employee.picture.medium;
-        photo.alt = `Photo of ${employee.name.first} ${employee.name.last}`;
-        photo.classList = "photo";
-        return photo;
-    }
-    function createH2(employee, htmlClass) {
-        const h2 = document.createElement("h2");
-        h2.classList = htmlClass;
-        h2.innerHTML = `${employee.name.first} ${employee.name.last}`;
-        return h2;
-    }
-    function createP(htmlClass, innerHTML) {
-        const p = document.createElement("p");
-        p.classList = htmlClass;
-        p.innerHTML = innerHTML;
-        return p;
-    }
-    const grid = document.querySelector(".grid");
-    const card = createDiv("card");
-    const photo = createPhoto(employee);
-    const employeeInfo = createDiv("employee-info");
-    const name = createH2(employee, "name");
-    const email = createP("email", employee.email);
-    const location = createP("location", employee.location.city);
-
-    grid.appendChild(card);
-    card.appendChild(photo);
-    card.appendChild(employeeInfo);
-    employeeInfo.appendChild(name);
-    employeeInfo.appendChild(email);
-    employeeInfo.appendChild(location);
+function displayModal(params) {
+    
 }
+
+grid.addEventListener('click', e => {
+    if (e.target !== grid) {
+        const card = e.target.closest(".card");
+        const index = card.getAttribute('data-index');
+        console.log(index);
+    }
+})
