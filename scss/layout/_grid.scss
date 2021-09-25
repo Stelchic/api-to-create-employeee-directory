@@ -1,6 +1,17 @@
+@use '../utilities/mixins.scss' as *;
+@use '../utilities/variables.scss' as *;
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-gap: 2rem;
+
+    @include breakpoint($tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include breakpoint($desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
